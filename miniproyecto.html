@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Miniproyecto &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Miniproyecto';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Miniproyecto</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FMiniproyecto.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Miniproyecto.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Miniproyecto</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="miniproyecto">
+<h1>Miniproyecto<a class="headerlink" href="#miniproyecto" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimensiones:&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dimensiones: (4424, 37)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Marital status</th>
+      <th>Application mode</th>
+      <th>Application order</th>
+      <th>Course</th>
+      <th>Daytime/evening attendance\t</th>
+      <th>Previous qualification</th>
+      <th>Previous qualification (grade)</th>
+      <th>Nacionality</th>
+      <th>Mother's qualification</th>
+      <th>Father's qualification</th>
+      <th>...</th>
+      <th>Curricular units 2nd sem (credited)</th>
+      <th>Curricular units 2nd sem (enrolled)</th>
+      <th>Curricular units 2nd sem (evaluations)</th>
+      <th>Curricular units 2nd sem (approved)</th>
+      <th>Curricular units 2nd sem (grade)</th>
+      <th>Curricular units 2nd sem (without evaluations)</th>
+      <th>Unemployment rate</th>
+      <th>Inflation rate</th>
+      <th>GDP</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>17</td>
+      <td>5</td>
+      <td>171</td>
+      <td>1</td>
+      <td>1</td>
+      <td>122.0</td>
+      <td>1</td>
+      <td>19</td>
+      <td>12</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>10.8</td>
+      <td>1.4</td>
+      <td>1.74</td>
+      <td>Dropout</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>15</td>
+      <td>1</td>
+      <td>9254</td>
+      <td>1</td>
+      <td>1</td>
+      <td>160.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>13.666667</td>
+      <td>0</td>
+      <td>13.9</td>
+      <td>-0.3</td>
+      <td>0.79</td>
+      <td>Graduate</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>9070</td>
+      <td>1</td>
+      <td>1</td>
+      <td>122.0</td>
+      <td>1</td>
+      <td>37</td>
+      <td>37</td>
+      <td>...</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>10.8</td>
+      <td>1.4</td>
+      <td>1.74</td>
+      <td>Dropout</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>17</td>
+      <td>2</td>
+      <td>9773</td>
+      <td>1</td>
+      <td>1</td>
+      <td>122.0</td>
+      <td>1</td>
+      <td>38</td>
+      <td>37</td>
+      <td>...</td>
+      <td>0</td>
+      <td>6</td>
+      <td>10</td>
+      <td>5</td>
+      <td>12.400000</td>
+      <td>0</td>
+      <td>9.4</td>
+      <td>-0.8</td>
+      <td>-3.12</td>
+      <td>Graduate</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>39</td>
+      <td>1</td>
+      <td>8014</td>
+      <td>0</td>
+      <td>1</td>
+      <td>100.0</td>
+      <td>1</td>
+      <td>37</td>
+      <td>38</td>
+      <td>...</td>
+      <td>0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>13.000000</td>
+      <td>0</td>
+      <td>13.9</td>
+      <td>-0.3</td>
+      <td>0.79</td>
+      <td>Graduate</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 37 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 4424 entries, 0 to 4423
+Data columns (total 37 columns):
+ #   Column                                          Non-Null Count  Dtype  
+---  ------                                          --------------  -----  
+ 0   Marital status                                  4424 non-null   int64  
+ 1   Application mode                                4424 non-null   int64  
+ 2   Application order                               4424 non-null   int64  
+ 3   Course                                          4424 non-null   int64  
+ 4   Daytime/evening attendance	                     4424 non-null   int64  
+ 5   Previous qualification                          4424 non-null   int64  
+ 6   Previous qualification (grade)                  4424 non-null   float64
+ 7   Nacionality                                     4424 non-null   int64  
+ 8   Mother&#39;s qualification                          4424 non-null   int64  
+ 9   Father&#39;s qualification                          4424 non-null   int64  
+ 10  Mother&#39;s occupation                             4424 non-null   int64  
+ 11  Father&#39;s occupation                             4424 non-null   int64  
+ 12  Admission grade                                 4424 non-null   float64
+ 13  Displaced                                       4424 non-null   int64  
+ 14  Educational special needs                       4424 non-null   int64  
+ 15  Debtor                                          4424 non-null   int64  
+ 16  Tuition fees up to date                         4424 non-null   int64  
+ 17  Gender                                          4424 non-null   int64  
+ 18  Scholarship holder                              4424 non-null   int64  
+ 19  Age at enrollment                               4424 non-null   int64  
+ 20  International                                   4424 non-null   int64  
+ 21  Curricular units 1st sem (credited)             4424 non-null   int64  
+ 22  Curricular units 1st sem (enrolled)             4424 non-null   int64  
+ 23  Curricular units 1st sem (evaluations)          4424 non-null   int64  
+ 24  Curricular units 1st sem (approved)             4424 non-null   int64  
+ 25  Curricular units 1st sem (grade)                4424 non-null   float64
+ 26  Curricular units 1st sem (without evaluations)  4424 non-null   int64  
+ 27  Curricular units 2nd sem (credited)             4424 non-null   int64  
+ 28  Curricular units 2nd sem (enrolled)             4424 non-null   int64  
+ 29  Curricular units 2nd sem (evaluations)          4424 non-null   int64  
+ 30  Curricular units 2nd sem (approved)             4424 non-null   int64  
+ 31  Curricular units 2nd sem (grade)                4424 non-null   float64
+ 32  Curricular units 2nd sem (without evaluations)  4424 non-null   int64  
+ 33  Unemployment rate                               4424 non-null   float64
+ 34  Inflation rate                                  4424 non-null   float64
+ 35  GDP                                             4424 non-null   float64
+ 36  Target                                          4424 non-null   object 
+dtypes: float64(7), int64(29), object(1)
+memory usage: 1.2+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Marital status</th>
+      <th>Application mode</th>
+      <th>Application order</th>
+      <th>Course</th>
+      <th>Daytime/evening attendance\t</th>
+      <th>Previous qualification</th>
+      <th>Previous qualification (grade)</th>
+      <th>Nacionality</th>
+      <th>Mother's qualification</th>
+      <th>Father's qualification</th>
+      <th>...</th>
+      <th>Curricular units 1st sem (without evaluations)</th>
+      <th>Curricular units 2nd sem (credited)</th>
+      <th>Curricular units 2nd sem (enrolled)</th>
+      <th>Curricular units 2nd sem (evaluations)</th>
+      <th>Curricular units 2nd sem (approved)</th>
+      <th>Curricular units 2nd sem (grade)</th>
+      <th>Curricular units 2nd sem (without evaluations)</th>
+      <th>Unemployment rate</th>
+      <th>Inflation rate</th>
+      <th>GDP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>...</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+      <td>4424.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.178571</td>
+      <td>18.669078</td>
+      <td>1.727848</td>
+      <td>8856.642631</td>
+      <td>0.890823</td>
+      <td>4.577758</td>
+      <td>132.613314</td>
+      <td>1.873192</td>
+      <td>19.561935</td>
+      <td>22.275316</td>
+      <td>...</td>
+      <td>0.137658</td>
+      <td>0.541817</td>
+      <td>6.232143</td>
+      <td>8.063291</td>
+      <td>4.435805</td>
+      <td>10.230206</td>
+      <td>0.150316</td>
+      <td>11.566139</td>
+      <td>1.228029</td>
+      <td>0.001969</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.605747</td>
+      <td>17.484682</td>
+      <td>1.313793</td>
+      <td>2063.566416</td>
+      <td>0.311897</td>
+      <td>10.216592</td>
+      <td>13.188332</td>
+      <td>6.914514</td>
+      <td>15.603186</td>
+      <td>15.343108</td>
+      <td>...</td>
+      <td>0.690880</td>
+      <td>1.918546</td>
+      <td>2.195951</td>
+      <td>3.947951</td>
+      <td>3.014764</td>
+      <td>5.210808</td>
+      <td>0.753774</td>
+      <td>2.663850</td>
+      <td>1.382711</td>
+      <td>2.269935</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>33.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>95.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>7.600000</td>
+      <td>-0.800000</td>
+      <td>-4.060000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>9085.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>125.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>5.000000</td>
+      <td>6.000000</td>
+      <td>2.000000</td>
+      <td>10.750000</td>
+      <td>0.000000</td>
+      <td>9.400000</td>
+      <td>0.300000</td>
+      <td>-1.700000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.000000</td>
+      <td>17.000000</td>
+      <td>1.000000</td>
+      <td>9238.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>133.100000</td>
+      <td>1.000000</td>
+      <td>19.000000</td>
+      <td>19.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>6.000000</td>
+      <td>8.000000</td>
+      <td>5.000000</td>
+      <td>12.200000</td>
+      <td>0.000000</td>
+      <td>11.100000</td>
+      <td>1.400000</td>
+      <td>0.320000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.000000</td>
+      <td>39.000000</td>
+      <td>2.000000</td>
+      <td>9556.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>140.000000</td>
+      <td>1.000000</td>
+      <td>37.000000</td>
+      <td>37.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>7.000000</td>
+      <td>10.000000</td>
+      <td>6.000000</td>
+      <td>13.333333</td>
+      <td>0.000000</td>
+      <td>13.900000</td>
+      <td>2.600000</td>
+      <td>1.790000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>6.000000</td>
+      <td>57.000000</td>
+      <td>9.000000</td>
+      <td>9991.000000</td>
+      <td>1.000000</td>
+      <td>43.000000</td>
+      <td>190.000000</td>
+      <td>109.000000</td>
+      <td>44.000000</td>
+      <td>44.000000</td>
+      <td>...</td>
+      <td>12.000000</td>
+      <td>19.000000</td>
+      <td>23.000000</td>
+      <td>33.000000</td>
+      <td>20.000000</td>
+      <td>18.571429</td>
+      <td>12.000000</td>
+      <td>16.200000</td>
+      <td>3.700000</td>
+      <td>3.510000</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 36 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Marital status                                    0
+Application mode                                  0
+Application order                                 0
+Course                                            0
+Daytime/evening attendance\t                      0
+Previous qualification                            0
+Previous qualification (grade)                    0
+Nacionality                                       0
+Mother&#39;s qualification                            0
+Father&#39;s qualification                            0
+Mother&#39;s occupation                               0
+Father&#39;s occupation                               0
+Admission grade                                   0
+Displaced                                         0
+Educational special needs                         0
+Debtor                                            0
+Tuition fees up to date                           0
+Gender                                            0
+Scholarship holder                                0
+Age at enrollment                                 0
+International                                     0
+Curricular units 1st sem (credited)               0
+Curricular units 1st sem (enrolled)               0
+Curricular units 1st sem (evaluations)            0
+Curricular units 1st sem (approved)               0
+Curricular units 1st sem (grade)                  0
+Curricular units 1st sem (without evaluations)    0
+Curricular units 2nd sem (credited)               0
+Curricular units 2nd sem (enrolled)               0
+Curricular units 2nd sem (evaluations)            0
+Curricular units 2nd sem (approved)               0
+Curricular units 2nd sem (grade)                  0
+Curricular units 2nd sem (without evaluations)    0
+Unemployment rate                                 0
+Inflation rate                                    0
+GDP                                               0
+Target                                            0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Target
+Graduate    2209
+Dropout     1421
+Enrolled     794
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribución de la variable Target&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cantidad&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()),</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1f199c170efdc9b8f61dc39afe7e401bc644f66612818966448c09a0218d124b.png" src="_images/1f199c170efdc9b8f61dc39afe7e401bc644f66612818966448c09a0218d124b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Marital status                                    0
+Application mode                                  0
+Application order                                 0
+Course                                            0
+Daytime/evening attendance\t                      0
+Previous qualification                            0
+Previous qualification (grade)                    0
+Nacionality                                       0
+Mother&#39;s qualification                            0
+Father&#39;s qualification                            0
+Mother&#39;s occupation                               0
+Father&#39;s occupation                               0
+Admission grade                                   0
+Displaced                                         0
+Educational special needs                         0
+Debtor                                            0
+Tuition fees up to date                           0
+Gender                                            0
+Scholarship holder                                0
+Age at enrollment                                 0
+International                                     0
+Curricular units 1st sem (credited)               0
+Curricular units 1st sem (enrolled)               0
+Curricular units 1st sem (evaluations)            0
+Curricular units 1st sem (approved)               0
+Curricular units 1st sem (grade)                  0
+Curricular units 1st sem (without evaluations)    0
+Curricular units 2nd sem (credited)               0
+Curricular units 2nd sem (enrolled)               0
+Curricular units 2nd sem (evaluations)            0
+Curricular units 2nd sem (approved)               0
+Curricular units 2nd sem (grade)                  0
+Curricular units 2nd sem (without evaluations)    0
+Unemployment rate                                 0
+Inflation rate                                    0
+GDP                                               0
+Target                                            0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Calcular la matriz de correlación</span>
+<span class="n">dataset_num</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">dataset_num</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriz de correlación:&quot;</span><span class="p">,</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Crear la máscara</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Configuración del mapa</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>  <span class="c1"># Tamaño más razonable</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>       <span class="c1"># Tamaño del texto general</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">corr</span><span class="p">,</span> 
+    <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> 
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> 
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> 
+    <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>   <span class="c1"># Tamaño del número dentro de la celda</span>
+    <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>  <span class="c1"># Rotar etiquetas X</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>               <span class="c1"># Mantener etiquetas Y horizontales</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Matriz de Correlación - Dataset de Spotify&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriz de correlación: (36, 36)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Administrador\miniconda3\envs\ml_venv\lib\site-packages\seaborn\utils.py:80: UserWarning: Glyph 9 (	) missing from current font.
+  fig.canvas.draw()
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Administrador\miniconda3\envs\ml_venv\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 9 (	) missing from current font.
+  fig.canvas.print_figure(bytes_io, **kw)
+</pre></div>
+</div>
+<img alt="_images/57a47ea133239580a95ea097ea30290991ae6f1c5b318e526c211309d405403f.png" src="_images/57a47ea133239580a95ea097ea30290991ae6f1c5b318e526c211309d405403f.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
