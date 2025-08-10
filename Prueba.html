@@ -1967,6 +1967,95 @@ weighted avg       0.84      0.84      0.84      1328
 <img alt="_images/12a320c105764525b495320a7e13748dbf84ca6d20e152e33fff94a3feb4a1fa.png" src="_images/12a320c105764525b495320a7e13748dbf84ca6d20e152e33fff94a3feb4a1fa.png" />
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modelado de Regresión de Calificaciones&quot;</span><span class="p">)</span>
+<span class="n">calificacion_col</span> <span class="o">=</span> <span class="s1">&#39;Curricular units 2nd sem (grade)&#39;</span>  
+<span class="k">if</span> <span class="n">calificacion_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">calificacion_col</span><span class="p">]</span>
+    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span>
+    <span class="n">X_reg_train</span><span class="p">,</span> <span class="n">X_reg_test</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">,</span> <span class="n">y_reg_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+    <span class="n">numeric_cols_reg</span> <span class="o">=</span> <span class="n">X_reg_train</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">scaler_reg</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">X_reg_train_scaled</span> <span class="o">=</span> <span class="n">scaler_reg</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_reg_train</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span>
+    <span class="n">X_reg_test_scaled</span> <span class="o">=</span> <span class="n">scaler_reg</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_reg_test</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span>
+    <span class="n">K_LIST</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    <span class="n">reg_results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">K_LIST</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_reg_train_scaled</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_reg_test_scaled</span><span class="p">)</span>
+        <span class="n">reg_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;mae&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+            <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)),</span>
+            <span class="s1">&#39;r2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="p">})</span>
+    
+    <span class="n">reg_results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reg_results</span><span class="p">)</span>
+    <span class="n">best_k_reg</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">reg_results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MAE&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R²&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best_k_reg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mejor k = </span><span class="si">{</span><span class="n">best_k_reg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Desempeño de KNN en Regresión por Valor de k&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Número de Vecinos (k)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Puntuación&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">K_LIST</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="n">knn_reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">best_k_reg</span><span class="p">)</span>
+    <span class="n">knn_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_reg_train_scaled</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">)</span>
+    <span class="n">y_reg_pred</span> <span class="o">=</span> <span class="n">knn_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_reg_test_scaled</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reporte Regresión (k=</span><span class="si">{</span><span class="n">best_k_reg</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_reg_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_reg_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_reg_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
+             <span class="p">[</span><span class="n">y_reg_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_reg_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
+             <span class="s1">&#39;--r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Línea de perfecta predicción&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Valores Reales vs Predicciones (Calificaciones)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones Reales&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones Predichas&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Advertencia: No se encontró la columna &#39;</span><span class="si">{</span><span class="n">calificacion_col</span><span class="si">}</span><span class="s2">&#39; para regresión&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Modelado de Regresión de Calificaciones
+</pre></div>
+</div>
+<img alt="_images/9c7fec99787aab4d08c3c558c5d58a992b59de26e9e5d7fa46664b43f20d7de4.png" src="_images/9c7fec99787aab4d08c3c558c5d58a992b59de26e9e5d7fa46664b43f20d7de4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------------------------------------
+Reporte Regresión (k=5)
+------------------------------------------------------------
+MAE: 1.1305
+RMSE: 1.9278
+R²: 0.8643
+------------------------------------------------------------
+</pre></div>
+</div>
+<img alt="_images/c2615e5e13b89e6afcd686eef76ceb9bf1606df383ebc4f30109a8f6b2e5cceb.png" src="_images/c2615e5e13b89e6afcd686eef76ceb9bf1606df383ebc4f30109a8f6b2e5cceb.png" />
+</div>
+</div>
 <p>Algunos hallazgos que encontramos en estas gráficas es la presencia de falsos Negativos altos, con una cantidad  171 estudiantes en riesgo no detectados. Y en falsos Positivos bajos solo 45 estudiantes podrían recibir ayuda innecesaria.</p>
 <p>También para nuestro gráfico ROC tenemos un AUC = 0.87, por lo que el modelo distingue bien entre clases.</p>
 <p>Para nuestro gráfico de dispersión (Real vs. Predicho) notamos puntos que  se alinean cerca de la diagonal por lo que hace que las predicciones sean más precisas. Hay presencia de pocos outliers como por ejemplo estudiantes con notas reales altas pero predichas como bajas.
