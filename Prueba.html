@@ -379,6 +379,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisis-de-proyecto-integrador-de-aprendizaje-automatizado">
 <h1>Análisis de Proyecto Integrador de Aprendizaje Automatizado<a class="headerlink" href="#analisis-de-proyecto-integrador-de-aprendizaje-automatizado" title="Link to this heading">#</a></h1>
+<p>Como objetivo de estudio tenemos presente identificar resultados y los que estos significan de aquellos estudiantes con mayor riesgo de abandonar sus estudios académicos y ayudar a encontrar estrategias preventivas que favorezcan su permanencia pues recopila información académica, socioeconómica y de hábitos de estudio para la toma de decisiones orientadas a mejorar la retención de información de estos estudiantes.</p>
+<p>Para ello iniciamos con nuestro análisis de la base</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -386,6 +388,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsRegressor</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span>
@@ -943,6 +946,7 @@ dtype: int64
 </div>
 </div>
 </div>
+<p>Encontramos que nuestra base está libre de datos faltantes, así que tenemos el total de información requerida para el estudio.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -983,16 +987,20 @@ Name: count, dtype: int64
 <img alt="_images/6bc9aa8bfb612a0c3c442cb4d33b2585bac472adce77d19f06d27a81f8b75e85.png" src="_images/6bc9aa8bfb612a0c3c442cb4d33b2585bac472adce77d19f06d27a81f8b75e85.png" />
 </div>
 </div>
+<p>En variables como estado civil, nacionalidad y género presentan distribuciones asimétricas, lo que puede decir que  la mayoría de estudiantes escogieron la misma opción, como solteros, misma país o mayoría de género.</p>
+<p>En las variables como la calificación de la madre/padre y su ocupación presentan distribuciones multimodales, indicando diferentes niveles educativos, al igual que ocupaciones repetidas.
+En la variable de edad al momento de la inscripción se ve una concentración de edades cercanas a los 18 a 25 años, pero con una cola larga que indica edades mayores de quienes entraron algo “tarde” a la universidad.</p>
+<p>En grado de admisión tiene una distribución anormal con un valor medio en 130 siendo una admisión consistente.</p>
+<p>En calificaciones previas se ve muestra asimetría positiva con mayoría de valores bajos y pocos casos con calificaciones altas previas.</p>
+<p>En unidades curriculares de 1er y 2do semestre se ven varios picos que pueden representar diferentes cargas académicas, y en las notas hay una tendencia a concentrarse en rangos medios-altos.</p>
+<p>En la variable que evalua quienes no dieron evaluaciones tiene una alta concentración en cero por lo que la mayoría de los estudiantes completa todas sus evaluaciones y un pequeño grupo no.</p>
+<p>En las asistencias diurna/nocturna tiene una distribución bimodal clara pues como hay 0 (no) y 1 (sí) indicando grupos definidos en turnos diurnos y nocturnos.</p>
+<p>En variables como deudor, cuotas de matrícula al día, beneficiario de beca, desplazado, necesidades educativas especiales e internacional casi todas muestran distribuciones binarias, con categorías bastante repetidas, como que la mayoría no presentan deudas, no son internacionales o no tienen necesidades especiales.</p>
+<p>Y en variables como tasa de desempleo, tasa de inflación y el PIB muestran variabilidad con patrones cíclicos o multimodales, lo que puede dar a decir que la mayoría de los estudiantes tienen una capacidad de permanencia en la universidad por condiciones económicas.</p>
+<p>Con estos resultados que presentan algunas excepcione, vemos cuáles serían datos atípicos:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestRegressor</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_outliers</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_outliers</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
     <span class="n">n_cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
     <span class="n">n_rows</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_cols</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>  
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_rows</span><span class="p">))</span>
@@ -1019,30 +1027,196 @@ Columnas numéricas: [&#39;Marital status&#39;, &#39;Application mode&#39;, &#39
 <img alt="_images/adc352bb9668f93604cfa10d2650fd73c8672a9c3aa123e3abd3ac25d914e8f9.png" src="_images/adc352bb9668f93604cfa10d2650fd73c8672a9c3aa123e3abd3ac25d914e8f9.png" />
 </div>
 </div>
+<p>Mediante estas gráficas podemos analizar el comportamiento de cada variable y observar quienes tienen visualmente una distribución normal o no y cómo están distribuidad.</p>
+<p>En la variable género tiene una distribución equilibrada pues no hay un sesgo extremo de género.</p>
+<p>En la edad al momento de la inscripción hay una mayor concentración en edades típicas entre los 18 a 20 años y pocos casos en edades mayores, siendo estudiantes no comunes entre los jóvenes o podría ser aquellos que están reingresando.</p>
+<p>En estado civil predominan los estudiantes solteros y pocos casos de personas casadasu otras condiciones civiles.</p>
+<p>En los desplazamientos hay una poca variabilidad, que puede señalar situaciones sociales extrernar que están afectando a algunos estudiantes.</p>
+<p>En necesidades educativas especiales es una cantidad muy mínima pues estas medidas son poco relevantes en la universidad como algún tipo de inclusión o apoyo académico.</p>
+<p>En los internaciones hay pocos estudiantes extranjeros.</p>
+<p>En los deudores se presenta que la mayoría no tiene deudas, que podrían decir que hay poco riesgo de deserción pero sigue existiendo un grupo mínimo de estudiantes que tienen un índice grande de deudas. Y Matrículas actualizadas tiene la mayoría de estudiantes sus pagos al día y muy pocos, siendo algunos categorizados como deudores y con dificultades económicas.</p>
+<p>Para los estudiantes becados se presenta una proporcón muy baja, por lo cual la mayoría de los estudiantes siguen dependiendo de los recursos propios para seguir estudiando</p>
+<p>Para la variable en cuanto al primer semestre para aquellos aprobados se observa que la mayoría tiene una calificación alta en las materias aprobadas y muy pocos valores bajos pero da un riesgo de deserción que puede ser el descenso de algunos   estudiantes en épocas muy tempranas. En las notas se presententan algunas medias y altas, pero con una dispersión que refleja diferencias en el rendimiento. Y los NO evaluados se ve que todos los estudiantes tienen evaluaciones registradas y pocos que, por decirlo así, no las hicieron o no pudieron hacerlas, que puede reflejar abandono de los estudios.</p>
+<p>Para la variable en cuanto al segundo semestre para aquellos aprobados tiene una tendencia similar al primer semestre pero con una caída en los valores altos, que puede ser un aumento de dificultades con el tiempo de entrega debido al atrazo del primer semestre. En las notas se presentan una distribución parecida a la del primer semestre, pero con más dispersión en el rendimiento. Y lo NO evaluados tienen un mismo patrón que el primer semestre.</p>
+<p>En el PBI tiene variaciones moderadas, puede decirse que en el país tuvo una economía nacional constante. En cuanto a las inflaciones si hay un ligero aumento que pudo tener un impacto en los costos educativos. Y en la tasa de desempleo hubo una variabilidad moderada que puede producir un cambio en la capacidad de pago de los estudiantes.</p>
+<p>Con estas características en cuenta, verificamos normalidad de estos datos</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_distributions</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
-    <span class="n">n_cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
-    <span class="n">n_rows</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_cols</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>  
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_rows</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribución de </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kstest</span>
 <span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
-<span class="n">plot_distributions</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">numeric_cols</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>  
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  
+        <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">ks_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">kstest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">))</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Variable&#39;</span><span class="p">:</span> <span class="n">col</span><span class="p">,</span>
+            <span class="s1">&#39;N muestras&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+            <span class="s1">&#39;KS Statistic&#39;</span><span class="p">:</span> <span class="n">ks_stat</span><span class="p">,</span>
+            <span class="s1">&#39;p-value&#39;</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+            <span class="s1">&#39;Normal (α=0.05)&#39;</span><span class="p">:</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="mf">0.05</span>
+        <span class="p">})</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Resultados KS (Datos Originales, sin Imputación) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">non_normal_vars</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;Normal (α=0.05)&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">][</span><span class="s1">&#39;Variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Variables NO normales (p &lt; 0.05):&quot;</span><span class="p">,</span> <span class="n">non_normal_vars</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3044bd3d0ab4e775fed7fb88ed84d21735a271fa1243a9b6fe1106f239281f53.png" src="_images/3044bd3d0ab4e775fed7fb88ed84d21735a271fa1243a9b6fe1106f239281f53.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Resultados KS (Datos Originales, sin Imputación) ===
+                                      Variable  N muestras  KS Statistic       p-value  Normal (α=0.05)
+                                Marital status        4424      0.501775  0.000000e+00            False
+                              Application mode        4424      0.229959 3.826259e-206            False
+                             Application order        4424      0.394435  0.000000e+00            False
+                                        Course        4424      0.428361  0.000000e+00            False
+                  Daytime/evening attendance\t        4424      0.527670  0.000000e+00            False
+                        Previous qualification        4424      0.477092  0.000000e+00            False
+                Previous qualification (grade)        4424      0.090842  3.217270e-32            False
+                                   Nacionality        4424      0.525382  0.000000e+00            False
+                        Mother&#39;s qualification        4424      0.230472 4.495023e-207            False
+                        Father&#39;s qualification        4424      0.270365 3.983151e-286            False
+                           Mother&#39;s occupation        4424      0.487541  0.000000e+00            False
+                           Father&#39;s occupation        4424      0.476288  0.000000e+00            False
+                               Admission grade        4424      0.065863  3.957894e-17            False
+                                     Displaced        4424      0.366277  0.000000e+00            False
+                     Educational special needs        4424      0.531466  0.000000e+00            False
+                                        Debtor        4424      0.526178  0.000000e+00            False
+                       Tuition fees up to date        4424      0.524249  0.000000e+00            False
+                                        Gender        4424      0.417565  0.000000e+00            False
+                            Scholarship holder        4424      0.468886  0.000000e+00            False
+                             Age at enrollment        4424      0.266761 1.961280e-278            False
+                                 International        4424      0.538563  0.000000e+00            False
+           Curricular units 1st sem (credited)        4424      0.487784  0.000000e+00            False
+           Curricular units 1st sem (enrolled)        4424      0.254783 1.169386e-253            False
+        Curricular units 1st sem (evaluations)        4424      0.153683  1.050046e-91            False
+           Curricular units 1st sem (approved)        4424      0.151942  1.224703e-89            False
+              Curricular units 1st sem (grade)        4424      0.298544  0.000000e+00            False
+Curricular units 1st sem (without evaluations)        4424      0.512511  0.000000e+00            False
+           Curricular units 2nd sem (credited)        4424      0.491384  0.000000e+00            False
+           Curricular units 2nd sem (enrolled)        4424      0.259772 7.870289e-264            False
+        Curricular units 2nd sem (evaluations)        4424      0.140582  9.629234e-77            False
+           Curricular units 2nd sem (approved)        4424      0.149045  2.972490e-86            False
+              Curricular units 2nd sem (grade)        4424      0.300811  0.000000e+00            False
+Curricular units 2nd sem (without evaluations)        4424      0.515289  0.000000e+00            False
+                             Unemployment rate        4424      0.124668  2.174723e-60            False
+                                Inflation rate        4424      0.159787  3.844727e-99            False
+                                           GDP        4424      0.174087 1.007577e-117            False
+
+Variables NO normales (p &lt; 0.05): [&#39;Marital status&#39;, &#39;Application mode&#39;, &#39;Application order&#39;, &#39;Course&#39;, &#39;Daytime/evening attendance\t&#39;, &#39;Previous qualification&#39;, &#39;Previous qualification (grade)&#39;, &#39;Nacionality&#39;, &quot;Mother&#39;s qualification&quot;, &quot;Father&#39;s qualification&quot;, &quot;Mother&#39;s occupation&quot;, &quot;Father&#39;s occupation&quot;, &#39;Admission grade&#39;, &#39;Displaced&#39;, &#39;Educational special needs&#39;, &#39;Debtor&#39;, &#39;Tuition fees up to date&#39;, &#39;Gender&#39;, &#39;Scholarship holder&#39;, &#39;Age at enrollment&#39;, &#39;International&#39;, &#39;Curricular units 1st sem (credited)&#39;, &#39;Curricular units 1st sem (enrolled)&#39;, &#39;Curricular units 1st sem (evaluations)&#39;, &#39;Curricular units 1st sem (approved)&#39;, &#39;Curricular units 1st sem (grade)&#39;, &#39;Curricular units 1st sem (without evaluations)&#39;, &#39;Curricular units 2nd sem (credited)&#39;, &#39;Curricular units 2nd sem (enrolled)&#39;, &#39;Curricular units 2nd sem (evaluations)&#39;, &#39;Curricular units 2nd sem (approved)&#39;, &#39;Curricular units 2nd sem (grade)&#39;, &#39;Curricular units 2nd sem (without evaluations)&#39;, &#39;Unemployment rate&#39;, &#39;Inflation rate&#39;, &#39;GDP&#39;]
+</pre></div>
 </div>
 </div>
-<p>Para las distribuciones en variables numéricas (como las calificaciones y unidades aprobadas) tienen una distribución bimodal puesto que tienen picos en altas y bajas calificaciones.
-También hay una posible correlación con el abandono.</p>
-<p>Y para variables demográficas como  edad y estado civil presentan una mayor concentración en estudiantes jóvenes de entre los 18 a 25 años.</p>
+</div>
+<p>Al ser los datos de nuestro dataset no normales, vamos a analizar cuales variables tienen una diferencia significativas entre sus grupos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kruskal</span>
+<span class="n">results_kruskal</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">:</span>
+    <span class="n">grupos</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">g</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">grupos</span><span class="p">):</span>
+        <span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">kruskal</span><span class="p">(</span><span class="o">*</span><span class="n">grupos</span><span class="p">)</span>
+        <span class="n">results_kruskal</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;variable&#39;</span><span class="p">:</span> <span class="n">col</span><span class="p">,</span>
+            <span class="s1">&#39;estadístico&#39;</span><span class="p">:</span> <span class="n">stat</span><span class="p">,</span>
+            <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
+            <span class="s1">&#39;significativo&#39;</span><span class="p">:</span> <span class="s1">&#39;Sí&#39;</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="k">else</span> <span class="s1">&#39;No&#39;</span>
+        <span class="p">})</span>
+
+<span class="n">kruskal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results_kruskal</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kruskal_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                          variable  estadístico  \
+0                                   Marital status    57.253010   
+1                                 Application mode   202.785714   
+2                                Application order    47.303623   
+3                                           Course     3.022211   
+4                     Daytime/evening attendance\t    28.733441   
+5                           Previous qualification    87.522904   
+6                   Previous qualification (grade)    63.676925   
+7                                      Nacionality     1.263301   
+8                           Mother&#39;s qualification    12.248124   
+9                           Father&#39;s qualification     4.832667   
+10                             Mother&#39;s occupation     4.993452   
+11                             Father&#39;s occupation     5.659176   
+12                                 Admission grade    73.234687   
+13                                       Displaced    57.741141   
+14                       Educational special needs     0.641905   
+15                                          Debtor   259.274600   
+16                         Tuition fees up to date   823.366569   
+17                                          Gender   233.213705   
+18                              Scholarship holder   409.850392   
+19                               Age at enrollment   375.106923   
+20                                   International     1.279627   
+21             Curricular units 1st sem (credited)     2.407965   
+22             Curricular units 1st sem (enrolled)   246.617133   
+23          Curricular units 1st sem (evaluations)   130.658781   
+24             Curricular units 1st sem (approved)  1561.739455   
+25                Curricular units 1st sem (grade)  1094.186486   
+26  Curricular units 1st sem (without evaluations)    32.606585   
+27             Curricular units 2nd sem (credited)     7.125028   
+28             Curricular units 2nd sem (enrolled)   270.731504   
+29          Curricular units 2nd sem (evaluations)   182.946432   
+30             Curricular units 2nd sem (approved)  1892.276492   
+31                Curricular units 2nd sem (grade)  1390.731330   
+32  Curricular units 2nd sem (without evaluations)    38.743060   
+33                               Unemployment rate    12.880667   
+34                                  Inflation rate     2.437771   
+35                                             GDP    14.411002   
+
+          p_value significativo  
+0    3.695445e-13            Sí  
+1    9.239354e-45            Sí  
+2    5.347474e-11            Sí  
+3    2.206659e-01            No  
+4    5.762522e-07            Sí  
+5    9.877405e-20            Sí  
+6    1.488441e-14            Sí  
+7    5.317135e-01            No  
+8    2.189544e-03            Sí  
+9    8.924827e-02            No  
+10   8.235417e-02            No  
+11   5.903718e-02            No  
+12   1.251093e-16            Sí  
+13   2.895147e-13            Sí  
+14   7.254576e-01            No  
+15   5.003063e-57            Sí  
+16  1.615181e-179            Sí  
+17   2.281852e-51            Sí  
+18   1.004889e-89            Sí  
+19   3.520194e-82            Sí  
+20   5.273907e-01            No  
+21   2.999970e-01            No  
+22   2.803949e-54            Sí  
+23   4.244301e-29            Sí  
+24   0.000000e+00            Sí  
+25  2.514338e-238            Sí  
+26   8.309408e-08            Sí  
+27   2.836741e-02            Sí  
+28   1.627050e-59            Sí  
+29   1.877963e-40            Sí  
+30   0.000000e+00            Sí  
+31  1.015147e-302            Sí  
+32   3.864126e-09            Sí  
+33   1.595874e-03            Sí  
+34   2.955594e-01            No  
+35   7.424901e-04            Sí  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Al hacer este test identificamos que las variables con diferencias estadísticamente significativas son: Orden de aplicación, asistencia diurna/nocturna y las necesidades educativas especiales pues tienen valores casi cercanos a 0 y mucho menores que el nivel de significancia de la prueba. (1.595874e-03 ≈ 0.0016) - Diferencias significativas
+Y para la variable de unidades curriculares de 1er semestre muestran valores muy altos, indicando grandes diferencias entre grupos en estas métricas.</p>
+<p>Por ello, para el seguimiento de nuestro estudio, tendremos en cuenta estas variables para no llegar a un error de medición.</p>
+<p>Ahora veremos un analisis de la correlación de nuestras variables:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_num</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
@@ -1063,7 +1237,7 @@ También hay una posible correlación con el abandono.</p>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>  
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>               
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Matriz de Correlación - Dataset de Spotify&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Matriz de Correlación&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1073,9 +1247,14 @@ También hay una posible correlación con el abandono.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriz de correlación: (36, 36)
 </pre></div>
 </div>
-<img alt="_images/57a47ea133239580a95ea097ea30290991ae6f1c5b318e526c211309d405403f.png" src="_images/57a47ea133239580a95ea097ea30290991ae6f1c5b318e526c211309d405403f.png" />
+<img alt="_images/0bcf546f018f583a3fe58356028e15bfd11bfe48195d15e54e3c45baaaaaffc9.png" src="_images/0bcf546f018f583a3fe58356028e15bfd11bfe48195d15e54e3c45baaaaaffc9.png" />
 </div>
 </div>
+<p>Mediante esta matriz de correlación podemos interpretar, asignando grupos a las variables de acuerdo con su característica en común, que las variables académicas como inscripción, evaluaciones, aprobados y notas están muy relacionadas entre sí.</p>
+<p>Para las variables tipo familiares, como género y las ocupaciones de los padres, muestran correlaciones altas entre s y reflejaría homogeneidad socioeconómica.</p>
+<p>Mientras que en el caso contrario, siendo las relaciones negativas, se presentan en variables como becas y asistencia diurna/nocturna.</p>
+<p>Y para las variables macroeconómicas, como la tasa de desempleo, la inflación y el PIB, muestran correlaciones bajas, teniendo poco impacto en las variables individuales de nuestra base de datos.</p>
+<p>Mediante este análisis, calculamos el VIF para detectar si hay multicolinealidad en estos casos:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.outliers_influence</span><span class="w"> </span><span class="kn">import</span> <span class="n">variance_inflation_factor</span>
@@ -1274,76 +1453,9 @@ Eliminando &#39;Curricular units 2nd sem (credited)&#39; con VIF=10.60
 </table>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_num</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
-<span class="n">dataset_num</span> <span class="o">=</span> <span class="n">dataset_num</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">spotify_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset_num</span><span class="p">)</span>
-
-<span class="n">vif_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">vif_data</span><span class="p">[</span><span class="s2">&quot;Variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset_num</span><span class="o">.</span><span class="n">columns</span>
-<span class="n">vif_data</span><span class="p">[</span><span class="s2">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">spotify_scaled</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spotify_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">vif_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;VIF&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                          Variable        VIF
-22             Curricular units 1st sem (enrolled)  24.482511
-28             Curricular units 2nd sem (enrolled)  17.207212
-21             Curricular units 1st sem (credited)  16.223547
-24             Curricular units 1st sem (approved)  13.103872
-27             Curricular units 2nd sem (credited)  12.591785
-30             Curricular units 2nd sem (approved)  10.736544
-10                             Mother&#39;s occupation   5.979421
-11                             Father&#39;s occupation   5.970843
-31                Curricular units 2nd sem (grade)   5.778227
-25                Curricular units 1st sem (grade)   5.197275
-23          Curricular units 1st sem (evaluations)   4.014065
-29          Curricular units 2nd sem (evaluations)   3.386472
-20                                   International   2.713637
-7                                      Nacionality   2.694558
-19                               Age at enrollment   2.301982
-3                                           Course   2.240226
-1                                 Application mode   1.815790
-26  Curricular units 1st sem (without evaluations)   1.713211
-12                                 Admission grade   1.628009
-32  Curricular units 2nd sem (without evaluations)   1.587049
-6                   Previous qualification (grade)   1.570796
-8                           Mother&#39;s qualification   1.539365
-9                           Father&#39;s qualification   1.454268
-0                                   Marital status   1.425762
-4                     Daytime/evening attendance\t   1.376207
-16                         Tuition fees up to date   1.350886
-5                           Previous qualification   1.349991
-13                                       Displaced   1.315167
-35                                             GDP   1.291736
-33                               Unemployment rate   1.291735
-15                                          Debtor   1.257405
-2                                Application order   1.252299
-18                              Scholarship holder   1.175167
-17                                          Gender   1.155016
-34                                  Inflation rate   1.043731
-14                       Educational special needs   1.009336
-</pre></div>
-</div>
-</div>
-</div>
-<p>Haciendo el Analisis Exploratorio vimos ciertas características: Análisis del Dataset
-El dataset contiene información detallada sobre 4424 estudiantes, con 37 variables que capturan:</p>
-<p>Información demográfica:</p>
-<p>Estado civil, nacionalidad, género, edad</p>
-<p>Educación de los padres (Mother’s/Father’s qualification/occupation)</p>
-<p>Historial académico:</p>
-<p>Modo de aplicación, orden de aplicación, calificación previa</p>
-<p>Asistencia diurna/nocturna</p>
-<p>Rendimiento académico:</p>
-<p>Unidades curriculares (inscritas, evaluadas, aprobadas, calificaciones) en 1er y 2do semestre</p>
-<p>Tasa de aprobación, calificaciones promedio</p>
-<p>Situación económica:</p>
-<p>Deudor, cuotas de matrícula al día, becario</p>
-<p>Tasas de desempleo, inflación, PIB (posiblemente contexto socioeconómico)</p>
+<p>Mediante esta eliminación de las primeras variables con VIF extremadamente altos ayudó a identificar que estas aportan información muy redundante y hasta repetitiva, así no nos molestarían en cuanto a la revisión de los siguientes métodos que se implementan en este analisis. Entre esas eliminadas estaban las variables académicas del primer y segundo semestre que están altamente correlacionadas entre sí.</p>
+<p>Y para las demás variables presentan en su mayoría un VIF entre 1 y 5, lo que indica baja multicolinealidad y mayor estabilidad para modelos predictivos.</p>
+<p>Con ello, empezamos el analisis más profundo del proyecto integrador de aprendizaje automatizado. Los siguiente es isualizar la distribución de la variable Target.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribución de la variable target:&quot;</span><span class="p">)</span>
@@ -1373,7 +1485,10 @@ Name: proportion, dtype: float64
 <img alt="_images/d7fa7ed9bcc018a9109f7c2dd819ef65f7cd8f7987b79012f6eef90fdf37e20b.png" src="_images/d7fa7ed9bcc018a9109f7c2dd819ef65f7cd8f7987b79012f6eef90fdf37e20b.png" />
 </div>
 </div>
+<p>Notamos que la distribución está desbalanceada y que predominan los graduados, pero el nivel de abandono, siendo casi un tercio, una cantidad alta en términos académicos y puede ser un riesgo importante pues es un hecho que el nivel de abandono puede llegar a un aumento significativo.</p>
 <p>Pudimos notar que casi la mitad de los estudiantes completan sus estudios y un 17.9% de estudiantes que sigue activo pero no ha graduado, lo cual afirma que hay un desbalance en los datos.</p>
+<p>Y el menor porcentaje de estudiantes que siguen el cruzo en la universidad pueden ser aquellos estudiantes que ya finalizaron su carrera o estudio académico.</p>
+<p>Con esto presente, haremos una indagación más profunda de estas caracteristicas utilizando RobustScaler:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">RobustScaler</span>
@@ -1507,6 +1622,9 @@ GDP                                             0.421203    0.914040
 </div>
 </div>
 </div>
+<p>Esto nos ayudó a indentificar que los modelos sensibles a escalas, como k-NN ue vamos a construir y a ejecutar en este EDA, se van a beneficiar de este preprocesamiento.</p>
+<p>También, como analizamos en puntos anteriores sobre los valores atípicos, esta prueba muestra que su no hace un impacto significativo en el estudio.</p>
+<p>Algunas variables como curso, cualificaciones previas y unidades curriculaes tienen una variabilidad notable, por lo que puede darles más peso en el modelo que no usan regularización fuerte. Y las variables binarias muestran rangos acotados, así que no se distorsionan.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PowerTransformer</span><span class="p">,</span> <span class="n">RobustScaler</span>
@@ -1573,45 +1691,32 @@ GDP                                             0.421203    0.914040
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_features</span> <span class="o">=</span> <span class="n">feature_importance</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top 10 variables predictoras identificadas:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">top_features</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_features</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">:</span>
-        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 10 variables predictoras identificadas:
-[&#39;Curricular units 2nd sem (approved)&#39;, &#39;Curricular units 2nd sem (grade)&#39;, &#39;Curricular units 1st sem (approved)&#39;, &#39;Curricular units 1st sem (grade)&#39;, &#39;Tuition fees up to date&#39;, &#39;Scholarship holder&#39;, &#39;Age at enrollment&#39;, &#39;Curricular units 2nd sem (evaluations)&#39;, &#39;Debtor&#39;, &#39;Application mode&#39;]
-</pre></div>
-</div>
-<img alt="_images/b8432dcd2ad5e0ac7b26f88f1c47ca4e15b157a5262e7a6b47d29634ad8aae55.png" src="_images/b8432dcd2ad5e0ac7b26f88f1c47ca4e15b157a5262e7a6b47d29634ad8aae55.png" />
-</div>
-</div>
-<p>En nuestra selección de variables clave tenemos:</p>
+<p>Mediante este análisis pudimos encontrar que las variables tipo académicas son los mejores predictores, pues entre estas variables como el rendimiento en unidades curriculares de 1er y 2do semestre es el factor más predictivo, así como las notas y el número de asignaturas aprobadas, cumpliendo así lo mostrado en la matriz de correlación.</p>
+<p>Entre las variables financieras como la matrícula actualizada y los becados tienen impacto moderado, mientras que el deudor tiene menor importancia, lo cual parece extraño pues son las principales causas de la deserción, pero por ser aquellos porcentajes amplios, se siguen teniendo en la lista</p>
+<p>Y una característica encontrada para la variable del historial académico previo aparece como el factor menos importante entre los listados pues no es usado como una medida estandar luego de ser el estudiante admitido pues antes de la admisión se evalua este historial, y siendo que el estudiante está dentro de la insititución, se deduce que cumplió los requisitos. Por tanto esta variable tiene un menor uso.</p>
+<p>Mediante este analisis del top 10 de las variables predictoras pudimos notar que para la unidad curricular del 2do semestre y sus desertores aprueban menos unidades en el segundo semestre. Los graduados y inscritos tienen un desempeño similar perolos graduados aprueban más. En cuanto a las notas, los desertores muestran que los estudiantes tienen calificaciones más bajas y los graduados obtienen las notas más altas, al igual que los inscritos.</p>
+<p>Mientras que los de 1er semestre tienen una misma tendencia que en el segundo semestre pero los graduados tienen mejores resultados pues participan más en evaluaciones, reflejando mayor compromiso, mientras que los desertores también tienen calificaciones más bajas desde el primer semestre.</p>
+<p>En los becados vemos que solo los graduados tienen becas y eso influye en tener más éxito académico. También los graduados e inscritos son generalmente más jóvenes, por lo que podríamos deducir que entre más joven, más permanencia en la universidad.</p>
+<p>Por ello, podemos decir que los desertores tienen las siguientes caracteristicas:</p>
 <ul class="simple">
-<li><p>Unidades aprobadas en 2do semestre (F-Score: 1410) → El factor más crítico.</p></li>
-<li><p>Calificaciones en 2do semestre (F-Score: 1134) → Rendimiento académico inmediato.</p></li>
-<li><p>Pago de matrícula (F-Score: 505) → Situación económica del estudiante.</p></li>
-<li><p>Edad al matricularse (F-Score: 154) → Estudiantes mayores tienen mayor riesgo.</p></li>
-<li><p>Becas (F-Score: 225) → Los becarios tienden a continuar.</p></li>
+<li><p>Pocas unidades aprobadas y bajas calificaciones.</p></li>
+<li><p>No estar al día con las cuotas.</p></li>
+<li><p>No tienen beca.</p></li>
+<li><p>Algunos tienen una edad avanzada.</p></li>
+<li><p>Tienen enor número de evaluaciones rendidas.</p></li>
+</ul>
+<p>Mientras que los mejores graduados tienen lo siguiente:</p>
+<ul class="simple">
+<li><p>Buen rendimiento académico.</p></li>
+<li><p>Becados.</p></li>
+<li><p>La mayoría son jovenes al momento del ingreso.</p></li>
+<li><p>Cuotas al día.</p></li>
+<li><p>Participación activa en evaluaciones.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Análisis Bivariado Avanzado&quot;</span><span class="p">)</span>
+<span class="n">top_features</span> <span class="o">=</span> <span class="n">feature_importance</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">top_numeric</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">top_features</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span>
 
 <span class="k">if</span> <span class="n">top_numeric</span><span class="p">:</span>
@@ -1646,21 +1751,59 @@ GDP                                             0.421203    0.914040
 <img alt="_images/70fb6bd90dad9929ab81db66909e1d0c7d3e2c31a6e627176da415b9abcb5c9c.png" src="_images/70fb6bd90dad9929ab81db66909e1d0c7d3e2c31a6e627176da415b9abcb5c9c.png" />
 </div>
 </div>
+<p>Mediante este analisis bivariado pudimos notar que para la unidad curricular del 2do semestre y sus desertores aprueban menos unidades en el segundo semestre. Los graduados y inscritos tienen un desempeño similar perolos graduados aprueban más. En cuanto a las notas, los desertores muestran que los estudiantes tienen calificaciones más bajas y los graduados obtienen las notas más altas, al igual que los inscritos.</p>
+<p>Mientras que los de 1er semestre tienen una misma tendencia que en el segundo semestre pero los graduados tienen mejores resultados pues participan más en evaluaciones, reflejando mayor compromiso, mientras que los desertores también tienen calificaciones más bajas desde el primer semestre.</p>
+<p>En los becados vemos que solo los graduados tienen becas y eso influye en tener más éxito académico. También los graduados e inscritos son generalmente más jóvenes, por lo que podríamos deducir que entre más joven, más permanencia en la universidad.</p>
+<p>Por ello, podemos decir que los desertores tienen las siguientes caracteristicas:</p>
+<ul class="simple">
+<li><p>Pocas unidades aprobadas y bajas calificaciones.</p></li>
+<li><p>No estar al día con las cuotas.</p></li>
+<li><p>No tienen beca.</p></li>
+<li><p>Algunos tienen una edad avanzada.</p></li>
+<li><p>Tienen enor número de evaluaciones rendidas.</p></li>
+</ul>
+<p>Mientras que los mejores graduados tienen lo siguiente:</p>
+<ul class="simple">
+<li><p>Buen rendimiento académico.</p></li>
+<li><p>Becados.</p></li>
+<li><p>La mayoría son jovenes al momento del ingreso.</p></li>
+<li><p>Cuotas al día.</p></li>
+<li><p>Participación activa en evaluaciones.</p></li>
+</ul>
+<p>Y observando la correlación entre variables clave y Target pudimos deducir que los estudiantes que aprueban más materias también obtienen mejores calificaciones y el rendimiento en el primer semestre predice el del segundo. También los  aprobados y las calificaciones del segundo semestre son los predictores más fuertes del éxito, es decir, más prpensos a graduarse.</p>
+<p>Ahora seguimos con el análisis de Regresión de Clasificación</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">categorical_nominal</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span>
+    <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">issparse</span>
+<span class="n">categorical_nominal</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;Marital status&#39;</span><span class="p">,</span> <span class="s1">&#39;Application mode&#39;</span><span class="p">,</span> <span class="s1">&#39;Course&#39;</span><span class="p">,</span> <span class="s1">&#39;Nacionality&#39;</span><span class="p">,</span>
     <span class="s2">&quot;Mother&#39;s occupation&quot;</span><span class="p">,</span> <span class="s2">&quot;Father&#39;s occupation&quot;</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">categorical_nominal</span><span class="p">:</span>
     <span class="n">dataset</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
 <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;Dropout&#39;</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+
+
 <span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Target_binary&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target_binary&#39;</span><span class="p">]</span>
+
 <span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
 <span class="p">)</span>
+
 <span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
     <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
         <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">numeric_cols</span><span class="p">),</span>
@@ -1668,52 +1811,80 @@ GDP                                             0.421203    0.914040
     <span class="p">],</span>
     <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;passthrough&#39;</span>  
 <span class="p">)</span>
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())</span>
-<span class="p">])</span>
-<span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">best_k</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">cv_scores</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-    <span class="n">pipeline</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">classifier__n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+
+<span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">k_values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">mean_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_values</span><span class="p">:</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+        <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_val</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+        <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+
+        
+        <span class="n">X_tr_processed</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_tr</span><span class="p">)</span>
+        <span class="n">X_val_processed</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+
+        
+        <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr_processed</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+
+        
+        <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_processed</span><span class="p">)</span>
+
+        
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+
     <span class="n">mean_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-    <span class="n">cv_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_score</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">mean_score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
-        <span class="n">best_score</span> <span class="o">=</span> <span class="n">mean_score</span>
-        <span class="n">best_k</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">mean_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> -&gt; Accuracy CV promedio: </span><span class="si">{</span><span class="n">mean_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor k encontrado: </span><span class="si">{</span><span class="n">best_k</span><span class="si">}</span><span class="s2"> con accuracy de validación cruzada: </span><span class="si">{</span><span class="n">best_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">classifier__n_neighbors</span><span class="o">=</span><span class="n">best_k</span><span class="p">)</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">best_k</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mean_scores</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor k encontrado: </span><span class="si">{</span><span class="n">best_k</span><span class="si">}</span><span class="s2"> con accuracy promedio CV: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">mean_scores</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X_train_processed</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_processed</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">X_train_processed</span><span class="p">):</span>
+    <span class="n">X_train_processed</span> <span class="o">=</span> <span class="n">X_train_processed</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">X_test_processed</span><span class="p">):</span>
+    <span class="n">X_test_processed</span> <span class="o">=</span> <span class="n">X_test_processed</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="n">knn_final</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">best_k</span><span class="p">)</span>
+<span class="n">knn_final</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_processed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_processed</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy en test:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
+
 <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> 
-            <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Dropout (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Continúa/Termina (1)&#39;</span><span class="p">],</span> 
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Dropout (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Continúa/Termina (1)&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Dropout (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Continúa/Termina (1)&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matriz de Confusión (k=</span><span class="si">{</span><span class="n">best_k</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Predicho&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Real&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">X_train_processed</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">X_train_processed</span> <span class="o">=</span> <span class="n">X_train_processed</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>  
 
 <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_processed</span><span class="p">)</span>
+<span class="n">X_train_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_processed</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_train_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Visualización PCA (2 Componentes) - Datos de Entrenamiento&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Componente Principal 1&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Componente Principal 2&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
            <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Dropout (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Continúa/Termina (1)&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_pca</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
     <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pca</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -1732,16 +1903,36 @@ GDP                                             0.421203    0.914040
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fronteras de Decisión KNN (k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">) - PCA&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Componente Principal 1&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Componente Principal 2&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
                <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Dropout (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Continúa/Termina (1)&#39;</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_pca</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">best_k</span><span class="p">)</span>
+<span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">best_k</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor k encontrado: 8 con accuracy de validación cruzada: 0.8466
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=1 -&gt; Accuracy CV promedio: 0.8049
+k=2 -&gt; Accuracy CV promedio: 0.7787
+k=3 -&gt; Accuracy CV promedio: 0.8337
+k=4 -&gt; Accuracy CV promedio: 0.8198
+k=5 -&gt; Accuracy CV promedio: 0.8330
+k=6 -&gt; Accuracy CV promedio: 0.8346
+k=7 -&gt; Accuracy CV promedio: 0.8359
+k=8 -&gt; Accuracy CV promedio: 0.8395
+k=9 -&gt; Accuracy CV promedio: 0.8343
+k=10 -&gt; Accuracy CV promedio: 0.8379
+k=11 -&gt; Accuracy CV promedio: 0.8349
+k=12 -&gt; Accuracy CV promedio: 0.8372
+k=13 -&gt; Accuracy CV promedio: 0.8340
+k=14 -&gt; Accuracy CV promedio: 0.8379
+k=15 -&gt; Accuracy CV promedio: 0.8317
+k=16 -&gt; Accuracy CV promedio: 0.8372
+k=17 -&gt; Accuracy CV promedio: 0.8311
+k=18 -&gt; Accuracy CV promedio: 0.8362
+k=19 -&gt; Accuracy CV promedio: 0.8333
+
+Mejor k encontrado: 8 con accuracy promedio CV: 0.8395
 
 Accuracy en test: 0.8381024096385542
 
@@ -1757,10 +1948,25 @@ weighted avg       0.84      0.84      0.83      1328
 </pre></div>
 </div>
 <img alt="_images/9a054bf51c8a85f427f871a3617bcbd4121eb04cac5f1b356e08feeb0cefbc24.png" src="_images/9a054bf51c8a85f427f871a3617bcbd4121eb04cac5f1b356e08feeb0cefbc24.png" />
-<img alt="_images/1992476203b553e8b4bfae8398ee2036243c9ec8126c3ee2ceea9639f9a7b12a.png" src="_images/1992476203b553e8b4bfae8398ee2036243c9ec8126c3ee2ceea9639f9a7b12a.png" />
-<img alt="_images/b2ecfb8435b376bbe8f3ccb16a85b1b3b194a2f63fcfcc442df6f0e39617259a.png" src="_images/b2ecfb8435b376bbe8f3ccb16a85b1b3b194a2f63fcfcc442df6f0e39617259a.png" />
+<img alt="_images/0014e49e2a1f8cc37985ee70392874d8644d6502accf2f8044f7a4763747a405.png" src="_images/0014e49e2a1f8cc37985ee70392874d8644d6502accf2f8044f7a4763747a405.png" />
+<img alt="_images/67df50f48122442c2ae891354fd358033f238cf55e9c8953f3a86179c72d0865.png" src="_images/67df50f48122442c2ae891354fd358033f238cf55e9c8953f3a86179c72d0865.png" />
 </div>
 </div>
+<p>Los resultados arrojados en este estudio recalca nuevamente que existe una correlación entre variables y el target.
+Mediante estos datos resultantes como:</p>
+<ul class="simple">
+<li><p>Curricular units 2nd sem (approved): 0.62</p></li>
+<li><p>Curricular units 2nd sem (grade): 0.57</p></li>
+<li><p>Curricular units 1st sem (approved): 0.53</p></li>
+<li><p>Curricular units 1st sem (grade): 0.49</p></li>
+<li><p>Tuition fees up to date: 0.41</p></li>
+</ul>
+<p>Indica que las notas y materias aprobadas son buenos predictores del abandono o continuidad.</p>
+<p>En la evaluación del modelo KNN evaluamos varios valores de k de 1 a 19 con validación cruzada y el mejor resultado se obtuvo con k=8, con un accuracy promedio de 0.8395 y una accuracy en el conjunto de test: 0.8381. Esto da a entender ue hay un buen rendimiento del modelo con un 84% de precisión en predicción.</p>
+<p>En la aatriz de confusión tenemos que los verdaderos positivos, siendo de 856, predijo que estudiantes continuarían y fue cierto, los falsos positivos, siendo de 45, predijo que estudiantes continuarían pero abandonaron, los falsos negativos, siendo de 170, predijo que estudiantes abandonarían pero continuaron, y los verdaderos negativos, siendo de 257, predijo el abandono de estudiantes.</p>
+<p>Por ello, este modelo predice mejor la continuidad estudiantil que el abandono, pues las clases están desbalanceadas.</p>
+<p>En el gráfico de dispersión se observa una separación entre los desertores (color morado) y los que continuan con sus estudios (color amarillo).</p>
+<p>Y en la segunda gráfica de PCA donde se muestra las regiones de decisión generadas por KNN logra una separación entre las clases, por lo que los datos muestran cierta separación entre quienes abandonan y quienes continúan.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;abandona&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;Dropout&#39;</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
@@ -1770,7 +1976,7 @@ weighted avg       0.84      0.84      0.83      1328
     <span class="s1">&#39;Application mode&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;Application order&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Course&#39;</span><span class="p">,</span> 
-    <span class="s1">&#39;Daytime/evening attendance&#39;</span><span class="p">,</span>  <span class="c1"># Sin \t</span>
+    <span class="s1">&#39;Daytime/evening attendance&#39;</span><span class="p">,</span>  
     <span class="s1">&#39;Previous qualification&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Previous qualification (grade)&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;Admission grade&#39;</span><span class="p">,</span> 
@@ -1853,7 +2059,9 @@ weighted avg       0.84      0.84      0.83      1328
     <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;F1-Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
 <span class="n">best_k</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;F1-Score&#39;</span><span class="p">])]</span>
+<span class="n">best_k2</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mean_scores</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor valor de k: </span><span class="si">{</span><span class="n">best_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor valor de k: </span><span class="si">{</span><span class="n">best_k2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
@@ -1893,6 +2101,8 @@ weighted avg       0.84      0.84      0.83      1328
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas disponibles: [&#39;Marital status&#39;, &#39;Application mode&#39;, &#39;Application order&#39;, &#39;Course&#39;, &#39;Daytime/evening attendance\t&#39;, &#39;Previous qualification&#39;, &#39;Previous qualification (grade)&#39;, &#39;Nacionality&#39;, &quot;Mother&#39;s qualification&quot;, &quot;Father&#39;s qualification&quot;, &quot;Mother&#39;s occupation&quot;, &quot;Father&#39;s occupation&quot;, &#39;Admission grade&#39;, &#39;Displaced&#39;, &#39;Educational special needs&#39;, &#39;Debtor&#39;, &#39;Tuition fees up to date&#39;, &#39;Gender&#39;, &#39;Scholarship holder&#39;, &#39;Age at enrollment&#39;, &#39;International&#39;, &#39;Curricular units 1st sem (credited)&#39;, &#39;Curricular units 1st sem (enrolled)&#39;, &#39;Curricular units 1st sem (evaluations)&#39;, &#39;Curricular units 1st sem (approved)&#39;, &#39;Curricular units 1st sem (grade)&#39;, &#39;Curricular units 1st sem (without evaluations)&#39;, &#39;Curricular units 2nd sem (credited)&#39;, &#39;Curricular units 2nd sem (enrolled)&#39;, &#39;Curricular units 2nd sem (evaluations)&#39;, &#39;Curricular units 2nd sem (approved)&#39;, &#39;Curricular units 2nd sem (grade)&#39;, &#39;Curricular units 2nd sem (without evaluations)&#39;, &#39;Unemployment rate&#39;, &#39;Inflation rate&#39;, &#39;GDP&#39;, &#39;Target&#39;, &#39;Target_binary&#39;, &#39;abandona&#39;]
 
 Mejor valor de k: 9
+
+Mejor valor de k: 8
 </pre></div>
 </div>
 <img alt="_images/3068ec9accb02b2525f3f70502d2284626d8ac5e5f814cc321be9e6f847b02ca.png" src="_images/3068ec9accb02b2525f3f70502d2284626d8ac5e5f814cc321be9e6f847b02ca.png" />
@@ -1967,100 +2177,413 @@ weighted avg       0.84      0.84      0.84      1328
 <img alt="_images/12a320c105764525b495320a7e13748dbf84ca6d20e152e33fff94a3feb4a1fa.png" src="_images/12a320c105764525b495320a7e13748dbf84ca6d20e152e33fff94a3feb4a1fa.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modelado de Regresión de Calificaciones&quot;</span><span class="p">)</span>
-<span class="n">calificacion_col</span> <span class="o">=</span> <span class="s1">&#39;Curricular units 2nd sem (grade)&#39;</span>  
-<span class="k">if</span> <span class="n">calificacion_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">calificacion_col</span><span class="p">]</span>
-    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span>
-    <span class="n">X_reg_train</span><span class="p">,</span> <span class="n">X_reg_test</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">,</span> <span class="n">y_reg_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-        <span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-    <span class="p">)</span>
-    <span class="n">numeric_cols_reg</span> <span class="o">=</span> <span class="n">X_reg_train</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">scaler_reg</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-    <span class="n">X_reg_train_scaled</span> <span class="o">=</span> <span class="n">scaler_reg</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_reg_train</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span>
-    <span class="n">X_reg_test_scaled</span> <span class="o">=</span> <span class="n">scaler_reg</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_reg_test</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span>
-    <span class="n">K_LIST</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
-    <span class="n">reg_results</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">K_LIST</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_reg_train_scaled</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">)</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_reg_test_scaled</span><span class="p">)</span>
-        <span class="n">reg_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s1">&#39;mae&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
-            <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)),</span>
-            <span class="s1">&#39;r2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-        <span class="p">})</span>
-    
-    <span class="n">reg_results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reg_results</span><span class="p">)</span>
-    <span class="n">best_k_reg</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">reg_results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MAE&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">reg_results_df</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R²&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best_k_reg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mejor k = </span><span class="si">{</span><span class="n">best_k_reg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Desempeño de KNN en Regresión por Valor de k&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Número de Vecinos (k)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Puntuación&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">K_LIST</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    
-    <span class="n">knn_reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">best_k_reg</span><span class="p">)</span>
-    <span class="n">knn_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_reg_train_scaled</span><span class="p">,</span> <span class="n">y_reg_train</span><span class="p">)</span>
-    <span class="n">y_reg_pred</span> <span class="o">=</span> <span class="n">knn_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_reg_test_scaled</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reporte Regresión (k=</span><span class="si">{</span><span class="n">best_k_reg</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_reg_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_reg_test</span><span class="p">,</span> <span class="n">y_reg_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_reg_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_reg_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
-             <span class="p">[</span><span class="n">y_reg_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_reg_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
-             <span class="s1">&#39;--r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Línea de perfecta predicción&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Valores Reales vs Predicciones (Calificaciones)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones Reales&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones Predichas&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Advertencia: No se encontró la columna &#39;</span><span class="si">{</span><span class="n">calificacion_col</span><span class="si">}</span><span class="s2">&#39; para regresión&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Modelado de Regresión de Calificaciones
-</pre></div>
-</div>
-<img alt="_images/9c7fec99787aab4d08c3c558c5d58a992b59de26e9e5d7fa46664b43f20d7de4.png" src="_images/9c7fec99787aab4d08c3c558c5d58a992b59de26e9e5d7fa46664b43f20d7de4.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------------------------------------
-Reporte Regresión (k=5)
-------------------------------------------------------------
-MAE: 1.1305
-RMSE: 1.9278
-R²: 0.8643
-------------------------------------------------------------
-</pre></div>
-</div>
-<img alt="_images/c2615e5e13b89e6afcd686eef76ceb9bf1606df383ebc4f30109a8f6b2e5cceb.png" src="_images/c2615e5e13b89e6afcd686eef76ceb9bf1606df383ebc4f30109a8f6b2e5cceb.png" />
-</div>
-</div>
 <p>Algunos hallazgos que encontramos en estas gráficas es la presencia de falsos Negativos altos, con una cantidad  171 estudiantes en riesgo no detectados. Y en falsos Positivos bajos solo 45 estudiantes podrían recibir ayuda innecesaria.</p>
 <p>También para nuestro gráfico ROC tenemos un AUC = 0.87, por lo que el modelo distingue bien entre clases.</p>
 <p>Para nuestro gráfico de dispersión (Real vs. Predicho) notamos puntos que  se alinean cerca de la diagonal por lo que hace que las predicciones sean más precisas. Hay presencia de pocos outliers como por ejemplo estudiantes con notas reales altas pero predichas como bajas.
 Tienen una istribución simétrica alrededor de 0, por lo que no hay sesgo claro y una heterocedasticidad leve pues hay una mayor varianza en notas altas.</p>
 <p>El modelo es efectivo pues ayuda a identificar estudiantes que continuarán, identificar estudiantes en riesgo para brindar apoyo académico y priorizar ayuda a estudiantes con mayor probabilidad de abandono.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
+        <span class="n">accs</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">recs</span><span class="p">,</span> <span class="n">f1s</span><span class="p">,</span> <span class="n">rocs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="n">X_train_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">X_val_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">y_train_fold</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+            <span class="n">y_val_fold</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+
+            <span class="c1"># escalo numéricas (fit solo con train)</span>
+            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+            <span class="c1"># one-hot para categóricas (fit solo con train)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
+
+            <span class="c1"># entreno KNN</span>
+            <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train_fold</span><span class="p">)</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
+
+            <span class="c1"># probabilidades para ROC AUC (si hay ambas clases)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">y_proba</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">roc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">roc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+            <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">rocs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc</span><span class="p">)</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;accuracy_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
+            <span class="s1">&#39;accuracy_std&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
+            <span class="s1">&#39;precision_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">),</span>
+            <span class="s1">&#39;recall_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recs</span><span class="p">),</span>
+            <span class="s1">&#39;f1_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1s</span><span class="p">),</span>
+            <span class="s1">&#39;roc_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rocs</span><span class="p">)</span>  <span class="c1"># puede haber NaN si alguna fold no tienen ambas clases</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># correr validación manual</span>
+<span class="n">k_candidates</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="n">k_candidates</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cv_results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">best_by_f1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="n">best_by_recall</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;recall_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="n">best_by_accuracy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;accuracy_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor k por F1:&quot;</span><span class="p">,</span> <span class="n">best_by_f1</span><span class="p">,</span> <span class="s2">&quot;por Recall:&quot;</span><span class="p">,</span> <span class="n">best_by_recall</span><span class="p">,</span> <span class="s2">&quot;por Accuracy:&quot;</span><span class="p">,</span> <span class="n">best_by_accuracy</span><span class="p">)</span>
+
+<span class="c1"># ahora entreno con la partición train/test tradicional para reportar (sin Pipeline)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># preparo transformaciones usando solo X_train</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+<span class="n">X_test_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+    <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
+    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">X_test_num</span>
+
+<span class="c1"># uso best_k según criterio (aquí elijo F1)</span>
+<span class="n">chosen_k</span> <span class="o">=</span> <span class="n">best_by_f1</span>
+<span class="n">knn_final</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">chosen_k</span><span class="p">)</span>
+<span class="n">knn_final</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cm</span><span class="p">)</span>
+
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+<span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ROC AUC:&quot;</span><span class="p">,</span> <span class="n">roc_auc</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># asumimos regresión sobre variables numéricas solo (o manejamos categóricas con OHE igual que arriba)</span>
+    <span class="c1"># para no complicar, escalo numéricas y hago OHE si hay categóricas</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
+        <span class="n">maes</span><span class="p">,</span> <span class="n">rmses</span><span class="p">,</span> <span class="n">r2s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+            <span class="n">X_train_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">X_val_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">y_train_fold</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+            <span class="n">y_val_fold</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+
+            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
+
+            <span class="n">reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train_fold</span><span class="p">)</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
+
+            <span class="n">maes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+            <span class="n">rmses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
+            <span class="n">r2s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;mae_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">maes</span><span class="p">),</span>
+            <span class="s1">&#39;rmse_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmses</span><span class="p">),</span>
+            <span class="s1">&#39;r2_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r2s</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># ejemplo de uso para la columna &#39;curricular_units_2nd_sem_grade&#39; si existe</span>
+<span class="n">target_reg_col</span> <span class="o">=</span> <span class="s1">&#39;curricular_units_2nd_sem_grade&#39;</span>
+<span class="k">if</span> <span class="n">target_reg_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span>
+    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span> <span class="o">+</span> <span class="n">drop_cols</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">numeric_cols_reg</span> <span class="o">=</span> <span class="n">X_reg</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="c1"># reuso categorical_cols si aplica</span>
+    <span class="n">numeric_cols_saved</span> <span class="o">=</span> <span class="n">numeric_cols</span>  <span class="c1"># guardo por si lo necesito</span>
+    <span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">numeric_cols_reg</span>    <span class="c1"># la función usa esta variable global; o adapta para pasar como arg</span>
+    <span class="n">reg_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse_mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontró la columna para regresión:&quot;</span><span class="p">,</span> <span class="n">target_reg_col</span><span class="p">)</span>
+
+<span class="c1"># ---- Validación manual KNN (clasificación) - SIN dependencias extra ----</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span>
+                             <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span>
+                             <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">)</span>
+
+<span class="c1"># detecto columnas numéricas y categóricas (ajusta si quieres columnas explícitas)</span>
+<span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">categorical_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span><span class="s1">&#39;category&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
+        <span class="n">accs</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">recs</span><span class="p">,</span> <span class="n">f1s</span><span class="p">,</span> <span class="n">rocs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">X_val</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+            <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+
+            <span class="c1"># escalo numéricas (fit en train)</span>
+            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+            <span class="c1"># encoding con pandas.get_dummies por fold (fit en train)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="c1"># Alineo columnas para que ambos arrays tengan mismas columnas</span>
+                <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_val_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
+
+            <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
+
+            <span class="c1"># intento calcular ROC AUC si hay probabilidades y ambas clases en y_val</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">y_proba</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">roc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">roc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+            <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">rocs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc</span><span class="p">)</span>
+
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;accuracy_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
+            <span class="s1">&#39;accuracy_std&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
+            <span class="s1">&#39;precision_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">),</span>
+            <span class="s1">&#39;recall_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recs</span><span class="p">),</span>
+            <span class="s1">&#39;f1_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1s</span><span class="p">),</span>
+            <span class="s1">&#39;roc_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rocs</span><span class="p">)</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+<span class="c1"># ---- Uso (clasificación) ----</span>
+<span class="n">k_candidates</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="n">k_candidates</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Elijo k según la métrica que quieras (F1 / Recall / Accuracy)</span>
+<span class="n">best_by_f1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="n">best_by_recall</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;recall_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor k por F1:&quot;</span><span class="p">,</span> <span class="n">best_by_f1</span><span class="p">,</span> <span class="s2">&quot;Mejor por Recall:&quot;</span><span class="p">,</span> <span class="n">best_by_recall</span><span class="p">)</span>
+
+<span class="c1"># ---- Entreno final con split train/test y reporto (usando el k elegido por F1) ----</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># transformaciones con train completo</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+<span class="n">X_test_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">X_test_num</span>
+
+<span class="n">chosen_k</span> <span class="o">=</span> <span class="n">best_by_f1</span>
+<span class="n">knn_final</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">chosen_k</span><span class="p">)</span>
+<span class="n">knn_final</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k elegido:&quot;</span><span class="p">,</span> <span class="n">chosen_k</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ROC AUC:&quot;</span><span class="p">,</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">))</span>
+
+
+<span class="c1"># ---- Validación manual KNN (regresión) - SIN pipeline ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># uso las mismas listas numeric_cols y categorical_cols que definimos arriba</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
+        <span class="n">maes</span><span class="p">,</span> <span class="n">rmses</span><span class="p">,</span> <span class="n">r2s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+            <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">X_val</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">y_train</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+            <span class="n">y_val</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+
+            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_val_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
+                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
+
+            <span class="n">reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
+
+            <span class="n">maes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+            <span class="n">rmses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
+            <span class="n">r2s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;mae_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">maes</span><span class="p">),</span>
+            <span class="s1">&#39;rmse_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmses</span><span class="p">),</span>
+            <span class="s1">&#39;r2_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r2s</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+<span class="c1"># ---- Uso (regresión) ----</span>
+<span class="n">target_reg_col</span> <span class="o">=</span> <span class="s1">&#39;curricular_units_2nd_sem_grade&#39;</span>
+<span class="k">if</span> <span class="n">target_reg_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span>
+    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">reg_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse_mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No encontré la columna para regresión:&quot;</span><span class="p">,</span> <span class="n">target_reg_col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor k por F1: 9 por Recall: 3 por Accuracy: 19
+              precision    recall  f1-score   support
+
+           0       0.84      0.94      0.89       901
+           1       0.84      0.63      0.72       427
+
+    accuracy                           0.84      1328
+   macro avg       0.84      0.79      0.81      1328
+weighted avg       0.84      0.84      0.84      1328
+
+Confusion matrix:
+ [[851  50]
+ [159 268]]
+ROC AUC: 0.8614706012315225
+No se encontró la columna para regresión: curricular_units_2nd_sem_grade
+    k  accuracy_mean  accuracy_std  precision_mean  recall_mean   f1_mean  \
+0   9       0.834765      0.008284        0.846047     0.593949  0.697598   
+1  11       0.834990      0.008096        0.860465     0.580586  0.693004   
+2   7       0.829341      0.006551        0.825019     0.596069  0.691552   
+3  19       0.836798      0.003808        0.880884     0.569323  0.691209   
+4  17       0.835216      0.005168        0.874841     0.568621  0.688965   
+5  13       0.831374      0.003763        0.855104     0.572844  0.685538   
+6  15       0.832503      0.005015        0.864162     0.568621  0.685371   
+7   5       0.822107      0.008502        0.794151     0.603113  0.685033   
+8  18       0.833859      0.004787        0.893583     0.548204  0.679351   
+9  10       0.832504      0.007917        0.883078     0.551722  0.678932   
+
+   roc_mean  
+0  0.858434  
+1  0.863147  
+2  0.850466  
+3  0.871498  
+4  0.870453  
+5  0.866160  
+6  0.869232  
+7  0.843357  
+8  0.871214  
+9  0.858946  
+Mejor k por F1: 9 Mejor por Recall: 3
+k elegido: 9
+              precision    recall  f1-score   support
+
+           0       0.84      0.94      0.89       901
+           1       0.84      0.63      0.72       427
+
+    accuracy                           0.84      1328
+   macro avg       0.84      0.79      0.81      1328
+weighted avg       0.84      0.84      0.84      1328
+
+Confusion matrix:
+ [[851  50]
+ [159 268]]
+ROC AUC: 0.8614706012315225
+No encontré la columna para regresión: curricular_units_2nd_sem_grade
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
