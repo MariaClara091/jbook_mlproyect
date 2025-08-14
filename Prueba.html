@@ -1948,8 +1948,8 @@ weighted avg       0.84      0.84      0.83      1328
 </pre></div>
 </div>
 <img alt="_images/9a054bf51c8a85f427f871a3617bcbd4121eb04cac5f1b356e08feeb0cefbc24.png" src="_images/9a054bf51c8a85f427f871a3617bcbd4121eb04cac5f1b356e08feeb0cefbc24.png" />
-<img alt="_images/0014e49e2a1f8cc37985ee70392874d8644d6502accf2f8044f7a4763747a405.png" src="_images/0014e49e2a1f8cc37985ee70392874d8644d6502accf2f8044f7a4763747a405.png" />
-<img alt="_images/67df50f48122442c2ae891354fd358033f238cf55e9c8953f3a86179c72d0865.png" src="_images/67df50f48122442c2ae891354fd358033f238cf55e9c8953f3a86179c72d0865.png" />
+<img alt="_images/26a919b1a0073c483b12244bcac9bc0243ce4fe7cbcd2ae84bcd9ae2e3b78af8.png" src="_images/26a919b1a0073c483b12244bcac9bc0243ce4fe7cbcd2ae84bcd9ae2e3b78af8.png" />
+<img alt="_images/542d632fc978820e12b78d9c0541f8dd53f23051fb013d6d960beeb97ae768c4.png" src="_images/542d632fc978820e12b78d9c0541f8dd53f23051fb013d6d960beeb97ae768c4.png" />
 </div>
 </div>
 <p>Los resultados arrojados en este estudio recalca nuevamente que existe una correlación entre variables y el target.
@@ -2059,10 +2059,7 @@ Mediante estos datos resultantes como:</p>
     <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;F1-Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
 <span class="n">best_k</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;F1-Score&#39;</span><span class="p">])]</span>
-<span class="n">best_k2</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mean_scores</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor valor de k: </span><span class="si">{</span><span class="n">best_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor valor de k: </span><span class="si">{</span><span class="n">best_k2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -2101,8 +2098,6 @@ Mediante estos datos resultantes como:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas disponibles: [&#39;Marital status&#39;, &#39;Application mode&#39;, &#39;Application order&#39;, &#39;Course&#39;, &#39;Daytime/evening attendance\t&#39;, &#39;Previous qualification&#39;, &#39;Previous qualification (grade)&#39;, &#39;Nacionality&#39;, &quot;Mother&#39;s qualification&quot;, &quot;Father&#39;s qualification&quot;, &quot;Mother&#39;s occupation&quot;, &quot;Father&#39;s occupation&quot;, &#39;Admission grade&#39;, &#39;Displaced&#39;, &#39;Educational special needs&#39;, &#39;Debtor&#39;, &#39;Tuition fees up to date&#39;, &#39;Gender&#39;, &#39;Scholarship holder&#39;, &#39;Age at enrollment&#39;, &#39;International&#39;, &#39;Curricular units 1st sem (credited)&#39;, &#39;Curricular units 1st sem (enrolled)&#39;, &#39;Curricular units 1st sem (evaluations)&#39;, &#39;Curricular units 1st sem (approved)&#39;, &#39;Curricular units 1st sem (grade)&#39;, &#39;Curricular units 1st sem (without evaluations)&#39;, &#39;Curricular units 2nd sem (credited)&#39;, &#39;Curricular units 2nd sem (enrolled)&#39;, &#39;Curricular units 2nd sem (evaluations)&#39;, &#39;Curricular units 2nd sem (approved)&#39;, &#39;Curricular units 2nd sem (grade)&#39;, &#39;Curricular units 2nd sem (without evaluations)&#39;, &#39;Unemployment rate&#39;, &#39;Inflation rate&#39;, &#39;GDP&#39;, &#39;Target&#39;, &#39;Target_binary&#39;, &#39;abandona&#39;]
 
 Mejor valor de k: 9
-
-Mejor valor de k: 8
 </pre></div>
 </div>
 <img alt="_images/3068ec9accb02b2525f3f70502d2284626d8ac5e5f814cc321be9e6f847b02ca.png" src="_images/3068ec9accb02b2525f3f70502d2284626d8ac5e5f814cc321be9e6f847b02ca.png" />
@@ -2184,404 +2179,175 @@ Tienen una istribución simétrica alrededor de 0, por lo que no hay sesgo claro
 <p>El modelo es efectivo pues ayuda a identificar estudiantes que continuarán, identificar estudiantes en riesgo para brindar apoyo académico y priorizar ayuda a estudiantes con mayor probabilidad de abandono.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
-        <span class="n">accs</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">recs</span><span class="p">,</span> <span class="n">f1s</span><span class="p">,</span> <span class="n">rocs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-            <span class="n">X_train_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">X_val_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">y_train_fold</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
-            <span class="n">y_val_fold</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
-
-            <span class="c1"># escalo numéricas (fit solo con train)</span>
-            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-
-            <span class="c1"># one-hot para categóricas (fit solo con train)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="p">])</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
-
-            <span class="c1"># entreno KNN</span>
-            <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train_fold</span><span class="p">)</span>
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
-
-            <span class="c1"># probabilidades para ROC AUC (si hay ambas clases)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">y_proba</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">roc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">roc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-            <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">rocs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc</span><span class="p">)</span>
-
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s1">&#39;accuracy_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
-            <span class="s1">&#39;accuracy_std&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
-            <span class="s1">&#39;precision_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">),</span>
-            <span class="s1">&#39;recall_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recs</span><span class="p">),</span>
-            <span class="s1">&#39;f1_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1s</span><span class="p">),</span>
-            <span class="s1">&#39;roc_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rocs</span><span class="p">)</span>  <span class="c1"># puede haber NaN si alguna fold no tienen ambas clases</span>
-        <span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-<span class="c1"># correr validación manual</span>
-<span class="n">k_candidates</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
-<span class="n">cv_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="n">k_candidates</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">cv_results</span> <span class="o">=</span> <span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">cv_results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">best_by_f1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-<span class="n">best_by_recall</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;recall_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-<span class="n">best_by_accuracy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;accuracy_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor k por F1:&quot;</span><span class="p">,</span> <span class="n">best_by_f1</span><span class="p">,</span> <span class="s2">&quot;por Recall:&quot;</span><span class="p">,</span> <span class="n">best_by_recall</span><span class="p">,</span> <span class="s2">&quot;por Accuracy:&quot;</span><span class="p">,</span> <span class="n">best_by_accuracy</span><span class="p">)</span>
-
-<span class="c1"># ahora entreno con la partición train/test tradicional para reportar (sin Pipeline)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># preparo transformaciones usando solo X_train</span>
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-<span class="n">X_test_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-    <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
-    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span><span class="p">])</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">X_test_num</span>
-
-<span class="c1"># uso best_k según criterio (aquí elijo F1)</span>
-<span class="n">chosen_k</span> <span class="o">=</span> <span class="n">best_by_f1</span>
-<span class="n">knn_final</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">chosen_k</span><span class="p">)</span>
-<span class="n">knn_final</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)</span>
-<span class="n">y_proba</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cm</span><span class="p">)</span>
-
-<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
-<span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ROC AUC:&quot;</span><span class="p">,</span> <span class="n">roc_auc</span><span class="p">)</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">encontrar_columnas_grade</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;1st&#39;</span> <span class="ow">in</span> <span class="n">low</span> <span class="ow">and</span> <span class="s1">&#39;grade&#39;</span> <span class="ow">in</span> <span class="n">low</span><span class="p">:</span>
+            <span class="n">col1</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">if</span> <span class="s1">&#39;2nd&#39;</span> <span class="ow">in</span> <span class="n">low</span> <span class="ow">and</span> <span class="s1">&#39;grade&#39;</span> <span class="ow">in</span> <span class="n">low</span><span class="p">:</span>
+            <span class="n">col2</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+<span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="o">=</span> <span class="n">encontrar_columnas_grade</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">col_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">col_2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No encontré columnas de notas del 1er y 2do semestre. Revisa los nombres.&quot;</span><span class="p">)</span>
+
+<span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;promedio_final&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">col_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dataset</span><span class="p">[</span><span class="n">col_2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Promedio_final creado. Estadísticas rápidas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;promedio_final&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">excluir</span> <span class="o">=</span> <span class="p">{</span><span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span><span class="p">,</span> <span class="s2">&quot;promedio_final&quot;</span><span class="p">,</span> <span class="s2">&quot;Target&quot;</span><span class="p">,</span> <span class="s2">&quot;Target_binary&quot;</span><span class="p">,</span> <span class="s2">&quot;Abandona&quot;</span><span class="p">}</span>
+<span class="n">features_reg</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">excluir</span><span class="p">]</span>
+<span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">features_reg</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;promedio_final&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">numeric_cols_reg</span> <span class="o">=</span> <span class="n">X_reg</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">categorical_cols_reg</span> <span class="o">=</span> <span class="n">X_reg</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Features para regresión: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">features_reg</span><span class="p">)</span><span class="si">}</span><span class="s2"> (num: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">numeric_cols_reg</span><span class="p">)</span><span class="si">}</span><span class="s2">, cat: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols_reg</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">numeric_cols</span><span class="p">,</span> <span class="n">categorical_cols</span><span class="p">,</span> <span class="n">k_list</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
     <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># asumimos regresión sobre variables numéricas solo (o manejamos categóricas con OHE igual que arriba)</span>
-    <span class="c1"># para no complicar, escalo numéricas y hago OHE si hay categóricas</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
         <span class="n">maes</span><span class="p">,</span> <span class="n">rmses</span><span class="p">,</span> <span class="n">r2s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-            <span class="n">X_train_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">X_val_fold</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">y_train_fold</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
-            <span class="n">y_val_fold</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+            <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
+            <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
 
+            
             <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_cols</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_cols</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_fold</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="p">])</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="p">])</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
-
-            <span class="n">reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-            <span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train_fold</span><span class="p">)</span>
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
-
-            <span class="n">maes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-            <span class="n">rmses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
-            <span class="n">r2s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_val_fold</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s1">&#39;mae_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">maes</span><span class="p">),</span>
-            <span class="s1">&#39;rmse_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmses</span><span class="p">),</span>
-            <span class="s1">&#39;r2_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r2s</span><span class="p">)</span>
-        <span class="p">})</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-<span class="c1"># ejemplo de uso para la columna &#39;curricular_units_2nd_sem_grade&#39; si existe</span>
-<span class="n">target_reg_col</span> <span class="o">=</span> <span class="s1">&#39;curricular_units_2nd_sem_grade&#39;</span>
-<span class="k">if</span> <span class="n">target_reg_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span>
-    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span> <span class="o">+</span> <span class="n">drop_cols</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-    <span class="n">numeric_cols_reg</span> <span class="o">=</span> <span class="n">X_reg</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="c1"># reuso categorical_cols si aplica</span>
-    <span class="n">numeric_cols_saved</span> <span class="o">=</span> <span class="n">numeric_cols</span>  <span class="c1"># guardo por si lo necesito</span>
-    <span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">numeric_cols_reg</span>    <span class="c1"># la función usa esta variable global; o adapta para pasar como arg</span>
-    <span class="n">reg_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">reg_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse_mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontró la columna para regresión:&quot;</span><span class="p">,</span> <span class="n">target_reg_col</span><span class="p">)</span>
-
-<span class="c1"># ---- Validación manual KNN (clasificación) - SIN dependencias extra ----</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">train_test_split</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span>
-                             <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span>
-                             <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">)</span>
-
-<span class="c1"># detecto columnas numéricas y categóricas (ajusta si quieres columnas explícitas)</span>
-<span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">categorical_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span><span class="s1">&#39;category&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
-        <span class="n">accs</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">recs</span><span class="p">,</span> <span class="n">f1s</span><span class="p">,</span> <span class="n">rocs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-            <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">X_val</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
-            <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
-
-            <span class="c1"># escalo numéricas (fit en train)</span>
-            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-
-            <span class="c1"># encoding con pandas.get_dummies por fold (fit en train)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            
+            <span class="k">if</span> <span class="n">categorical_cols</span><span class="p">:</span>
                 <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                 <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="c1"># Alineo columnas para que ambos arrays tengan mismas columnas</span>
-                <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_val_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_val_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                 <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
                 <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
+                <span class="n">X_train_proc</span><span class="p">,</span> <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_val_num</span>
 
-            <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
-
-            <span class="c1"># intento calcular ROC AUC si hay probabilidades y ambas clases en y_val</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">y_proba</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">roc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">roc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-            <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">rocs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc</span><span class="p">)</span>
-
-        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s1">&#39;accuracy_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
-            <span class="s1">&#39;accuracy_std&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">accs</span><span class="p">),</span>
-            <span class="s1">&#39;precision_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">),</span>
-            <span class="s1">&#39;recall_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recs</span><span class="p">),</span>
-            <span class="s1">&#39;f1_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1s</span><span class="p">),</span>
-            <span class="s1">&#39;roc_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rocs</span><span class="p">)</span>
-        <span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-
-<span class="c1"># ---- Uso (clasificación) ----</span>
-<span class="n">k_candidates</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
-<span class="n">cv_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_classification</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="n">k_candidates</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">cv_results</span> <span class="o">=</span> <span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="c1"># Elijo k según la métrica que quieras (F1 / Recall / Accuracy)</span>
-<span class="n">best_by_f1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;f1_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-<span class="n">best_by_recall</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cv_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;recall_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor k por F1:&quot;</span><span class="p">,</span> <span class="n">best_by_f1</span><span class="p">,</span> <span class="s2">&quot;Mejor por Recall:&quot;</span><span class="p">,</span> <span class="n">best_by_recall</span><span class="p">)</span>
-
-<span class="c1"># ---- Entreno final con split train/test y reporto (usando el k elegido por F1) ----</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># transformaciones con train completo</span>
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-<span class="n">X_test_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
-    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">X_test_num</span>
-
-<span class="n">chosen_k</span> <span class="o">=</span> <span class="n">best_by_f1</span>
-<span class="n">knn_final</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">chosen_k</span><span class="p">)</span>
-<span class="n">knn_final</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)</span>
-<span class="n">y_proba</span> <span class="o">=</span> <span class="n">knn_final</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k elegido:&quot;</span><span class="p">,</span> <span class="n">chosen_k</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ROC AUC:&quot;</span><span class="p">,</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">))</span>
-
-
-<span class="c1"># ---- Validación manual KNN (regresión) - SIN pipeline ----</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># uso las mismas listas numeric_cols y categorical_cols que definimos arriba</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
-        <span class="n">maes</span><span class="p">,</span> <span class="n">rmses</span><span class="p">,</span> <span class="n">r2s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-            <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">X_val</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">y_train</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
-            <span class="n">y_val</span> <span class="o">=</span> <span class="n">y_reg</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span>
-
-            <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-            <span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-            <span class="n">X_val_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
-
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_val</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_val_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_val_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_val_num</span><span class="p">,</span> <span class="n">X_val_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">X_train_num</span>
-                <span class="n">X_val_proc</span> <span class="o">=</span> <span class="n">X_val_num</span>
-
+            
             <span class="n">reg</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
             <span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
             <span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_proc</span><span class="p">)</span>
 
+            
             <span class="n">maes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
             <span class="n">rmses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
             <span class="n">r2s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
         <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s1">&#39;mae_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">maes</span><span class="p">),</span>
-            <span class="s1">&#39;rmse_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmses</span><span class="p">),</span>
-            <span class="s1">&#39;r2_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r2s</span><span class="p">)</span>
+            <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s2">&quot;MAE_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">maes</span><span class="p">),</span>
+            <span class="s2">&quot;RMSE_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmses</span><span class="p">),</span>
+            <span class="s2">&quot;R2_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r2s</span><span class="p">)</span>
         <span class="p">})</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 
-<span class="c1"># ---- Uso (regresión) ----</span>
-<span class="n">target_reg_col</span> <span class="o">=</span> <span class="s1">&#39;curricular_units_2nd_sem_grade&#39;</span>
-<span class="k">if</span> <span class="n">target_reg_col</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">y_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">]</span>
-    <span class="n">X_reg</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target_reg_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-    <span class="n">reg_results</span> <span class="o">=</span> <span class="n">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">reg_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rmse_mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">k_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">))</span>
+<span class="n">reg_cv</span> <span class="o">=</span> <span class="n">manual_cv_knn_regression</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">numeric_cols_reg</span><span class="p">,</span> <span class="n">categorical_cols_reg</span><span class="p">,</span> <span class="n">k_list</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">mejor_k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">reg_cv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">reg_cv</span><span class="p">[</span><span class="s2">&quot;R2_mean&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="s2">&quot;k&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Resultados de validación cruzada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reg_cv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor k por R²: </span><span class="si">{</span><span class="n">mejor_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_cols_reg</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">X_test_num</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols_reg</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_cols_reg</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">categorical_cols_reg</span><span class="p">:</span>
+    <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical_cols_reg</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">categorical_cols_reg</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_train_cat</span><span class="p">,</span> <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">X_train_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+    <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No encontré la columna para regresión:&quot;</span><span class="p">,</span> <span class="n">target_reg_col</span><span class="p">)</span>
+    <span class="n">X_train_proc</span><span class="p">,</span> <span class="n">X_test_proc</span> <span class="o">=</span> <span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_test_num</span>
+
+<span class="n">final_model</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">mejor_k</span><span class="p">)</span>
+<span class="n">final_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_proc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">final_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_proc</span><span class="p">)</span>
+
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Métricas finales en test:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²:  </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="s1">&#39;--r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Valor real&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Predicción&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Real vs Predicho (k=</span><span class="si">{</span><span class="n">mejor_k</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor k por F1: 9 por Recall: 3 por Accuracy: 19
-              precision    recall  f1-score   support
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Promedio_final creado. Estadísticas rápidas:
+count    4424.000000
+mean       10.435514
+std         4.818530
+min         0.000000
+25%        11.000000
+50%        12.250000
+75%        13.266667
+max        18.283654
+Name: promedio_final, dtype: float64
+Features para regresión: 34 (num: 34, cat: 0)
 
-           0       0.84      0.94      0.89       901
-           1       0.84      0.63      0.72       427
+Resultados de validación cruzada:
+     k  MAE_mean  RMSE_mean   R2_mean
+0    1  1.698598   3.091914  0.584937
+1    2  1.566913   2.677490  0.689204
+2    3  1.498466   2.510788  0.726962
+3    4  1.504873   2.498776  0.729288
+4    5  1.491753   2.468059  0.736172
+5    6  1.494283   2.462324  0.737458
+6    7  1.500070   2.467513  0.736568
+7    8  1.500471   2.462797  0.737508
+8    9  1.509338   2.468042  0.736486
+9   10  1.513351   2.476469  0.734823
+10  11  1.527597   2.491439  0.731667
+11  12  1.535416   2.502406  0.729306
+12  13  1.535783   2.499324  0.729936
+13  14  1.546554   2.509963  0.727625
+14  15  1.556548   2.519024  0.725626
+15  16  1.563083   2.525427  0.724245
+16  17  1.561698   2.523500  0.724619
+17  18  1.566854   2.530458  0.723082
+18  19  1.570745   2.537925  0.721431
+19  20  1.575120   2.545001  0.719859
 
-    accuracy                           0.84      1328
-   macro avg       0.84      0.79      0.81      1328
-weighted avg       0.84      0.84      0.84      1328
+Mejor k por R²: 8
 
-Confusion matrix:
- [[851  50]
- [159 268]]
-ROC AUC: 0.8614706012315225
-No se encontró la columna para regresión: curricular_units_2nd_sem_grade
-    k  accuracy_mean  accuracy_std  precision_mean  recall_mean   f1_mean  \
-0   9       0.834765      0.008284        0.846047     0.593949  0.697598   
-1  11       0.834990      0.008096        0.860465     0.580586  0.693004   
-2   7       0.829341      0.006551        0.825019     0.596069  0.691552   
-3  19       0.836798      0.003808        0.880884     0.569323  0.691209   
-4  17       0.835216      0.005168        0.874841     0.568621  0.688965   
-5  13       0.831374      0.003763        0.855104     0.572844  0.685538   
-6  15       0.832503      0.005015        0.864162     0.568621  0.685371   
-7   5       0.822107      0.008502        0.794151     0.603113  0.685033   
-8  18       0.833859      0.004787        0.893583     0.548204  0.679351   
-9  10       0.832504      0.007917        0.883078     0.551722  0.678932   
-
-   roc_mean  
-0  0.858434  
-1  0.863147  
-2  0.850466  
-3  0.871498  
-4  0.870453  
-5  0.866160  
-6  0.869232  
-7  0.843357  
-8  0.871214  
-9  0.858946  
-Mejor k por F1: 9 Mejor por Recall: 3
-k elegido: 9
-              precision    recall  f1-score   support
-
-           0       0.84      0.94      0.89       901
-           1       0.84      0.63      0.72       427
-
-    accuracy                           0.84      1328
-   macro avg       0.84      0.79      0.81      1328
-weighted avg       0.84      0.84      0.84      1328
-
-Confusion matrix:
- [[851  50]
- [159 268]]
-ROC AUC: 0.8614706012315225
-No encontré la columna para regresión: curricular_units_2nd_sem_grade
+Métricas finales en test:
+MAE: 1.6163
+RMSE: 2.6433
+R²:  0.7036
 </pre></div>
 </div>
+<img alt="_images/f4b87cbdc536cdfbbaf0276f0063d9b8ffcb07901661ae8d50f0886371a63b4e.png" src="_images/f4b87cbdc536cdfbbaf0276f0063d9b8ffcb07901661ae8d50f0886371a63b4e.png" />
 </div>
 </div>
 </section>
